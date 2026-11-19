@@ -20,7 +20,7 @@ public class CarteraCreditos {
         return this.creditos.stream().filter(criterio).toList();
     }
 
-    // AGREGADO
+    // Agregue
     public int cantidadCreditos() {
         return this.creditos.size();
     }
@@ -58,7 +58,7 @@ public class CarteraCreditos {
 
     }
 
-    // AGREGADO
+    // Agregue
     // Metodo q cuenta la cant. de solicitudes aceptadas x cada nivel de
     // morosidad. Si esta vacia retorna un mapa vacio.
     public Map<String, Long> conteoPorNivelMorosidad() {
@@ -68,7 +68,7 @@ public class CarteraCreditos {
                         Collectors.counting()));
     }
 
-    // AGREGADO
+    // Agregue
     // Metodo q cuenta la cant. de solicitudes aceptadas x cada tipo de cliente
     public Map<String, Long> conteoPorTipoCliente() {
         return  this.creditos.stream()
@@ -85,8 +85,9 @@ public class CarteraCreditos {
      * score financiero es mayor un 60%
      */
     public String informe() {
-        String cadena = "Total Creditos: %d | Tasa Interes Promedio: %.2f | Maximos Tipo de Cliente: %s | Cantidad Cliente 60%%: %d";
-        // AGREGADO solo total
+        // se agrego lo q faltaba
+        String cadena = "Total Creditos: %d | Tasa Interes Promedio: %.2f | Maximos Tipo de Cliente: %s | Por Morosidad: %s | Por Tipo: %s | Cantidad Cliente 60%%: %d";
+        // Agregue solo total
         int total = this.cantidadCreditos();
         double ti = this.tasaInteresPromedio();
         int cantidad = this.filtrar(sc -> sc.getTasaInteresAnual() > 60).size();
@@ -97,7 +98,7 @@ public class CarteraCreditos {
                         (newKey, newValue) -> newKey,
                         LinkedHashMap::new));
 
-        // AGREGADO solo total, y los this. algo mas
+        // Agregue solo total, y los this. algo mas
         return cadena.formatted(total, ti, tiposFormateados, this.conteoPorNivelMorosidad(), this.conteoPorTipoCliente(), cantidad);
 
     }

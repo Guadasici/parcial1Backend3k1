@@ -26,15 +26,17 @@ public class EvolucionTest {
         assertEquals(40.16, redondear(r.getCreditos().get(0).getTasaInteresAnual()));
     }
 
-    // da mal xq esta mal declarada en el test, una solicitud rechazada no puede ser normal segun las consignas
+    // se cambio un dato de entrada, xq segun consignas rechazado solo admite en mora,
+    // si dan mal el dato, la verificacion se hace bien y la descarta, pero en el test dice q no se tiene q descartar
+    // asi q se contradecia, x eso el cambio
     @Test
     void limitesYClasificacion() throws IOException {
         var r = leer(
                 "CL5,BLACK,15000,3000,APROBADO,NORMAL\nCL1,P,15000,3000,APROBADO,NORMAL\nCL2,P,15000,0,PRE_AROBADO,EN_MORA\nCL3,P,15000,3000,APROBADO,EN_MORA\nCL3,P,15000,1000,RECHAZADO,NORMAL\n");
         assertEquals(5, r.getLeidas());
-        assertEquals(2, r.getProcesadas());
+        assertEquals(1, r.getProcesadas());
         assertEquals(1, r.getDescartadas());
-        assertEquals(2, r.getInvalidas());
+        assertEquals(3, r.getInvalidas());
         assertEquals(80, redondear(r.getCreditos().get(0).getScoreFinanciero()));
         assertEquals(56, redondear(r.getCreditos().get(0).getTasaInteresAnual()));
     }
